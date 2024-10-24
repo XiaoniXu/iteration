@@ -9,3 +9,55 @@ library(tidyverse)
 library(rvest)
 ```
 
+## writing the first function
+
+as an example, htere's a z-score computation
+
+```{r}
+x_vec = rnorm(n = 25, mean = 10, sd = 3.5)
+
+(x_vec - mean(x_vec)) / sd(x_vec)
+```
+
+Now I'll write a function to do this
+
+```{r}
+z_scores = function(x) {
+  
+  if (!is.numeric(x)) {
+    stop("x needs to be numeric")
+  }
+  
+  if (length(x) <5 ) {
+    stop("you need at least five numbers to compute z score")
+  }
+  
+  z = (x - mean(x)) / sd(x)
+  
+  return(z)
+}
+
+z_scores(x = x_vec)
+```
+
+Does this always work?
+```{r, error = TRUE}
+z_scores(x = 3)
+
+z_scores(x = c("my", "name", "is", "xiaoni"))
+
+z_scores(x = x_vec)
+```
+
+## A new function
+
+```{r}
+mean_and_sd = function(x) {
+  
+  mean_x = mean(x)
+  
+  sd_x = sd(x)
+  
+}
+```
+
