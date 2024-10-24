@@ -1,0 +1,11 @@
+---
+title: "Writing Functions"
+author: "Xiaoni Xu"
+date: "2024-10-24"
+output: github_document
+---
+```{r, message = FALSE}
+library(tidyverse)
+library(rvest)
+```
+
