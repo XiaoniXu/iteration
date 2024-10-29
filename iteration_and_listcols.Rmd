@@ -1,0 +1,91 @@
+---
+title: "iteration_and_listcols"
+author: "Xiaoni Xu"
+date: "2024-10-29"
+output: html_document
+---
+
+
+```{r, message = FALSE}
+library(tidyverse)
+library(rvest)
+```
+
+```{r}
+set.seed(1)
+```
+
+## **Lists**
+
+```{r}
+vec_numeric = 5:8
+vec_char = c("My", "name", "is", "Justin")
+vec_logical = c(TRUE, TRUE, TRUE, FALSE)
+# not the best way
+```
+
+```{r}
+l = list(
+  vec_numeric = 5:8,
+  mat         = matrix(1:8, 2, 4),
+  vec_logical = c(TRUE, FALSE),
+  summary     = summary(rnorm(1000)))
+l
+
+l$mat # Jeff hates it
+
+l[["mat"]][1, 3] # Jeff likes it (insert hotline bling meme)
+```
+
+Make a list that's hopefully a bit more useful.
+```{r}
+list_norm = 
+  list(
+    a = rnorm(20, 0, 5),
+    b = rnorm(20, 4, 5),
+    c = rnorm(20, 0, 10),
+    d = rnorm(20, 4, 10)
+  )
+
+list_norm[["b"]]
+```
+
+```{r}
+mean_and_sd = function(x) {
+  
+  if (!is.numeric(x)) {
+    stop("Argument x should be numeric")
+  } else if (length(x) == 1) {
+    stop("Cannot be computed for length 1 vectors")
+  }
+  
+  mean_x = mean(x)
+  sd_x = sd(x)
+
+  tibble(
+    mean = mean_x, 
+    sd = sd_x
+  )
+}
+
+# click shift+alt at the same time and select multiple rows, to type multiple rows at once
+```
+
+```{r}
+mean_and_sd(list_norm[[1]])
+mean_and_sd(list_norm[[2]])
+mean_and_sd(list_norm[[3]])
+mean_and_sd(list_norm[[4]])
+```
+
+## **Use a for loop**
+```{r}
+output = vector("list", length = 4)
+
+for (i in 1:4) {
+  output[[i]] = mean_and_sd(list_norm[[i]])
+}
+
+output
+```
+
